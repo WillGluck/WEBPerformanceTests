@@ -1,13 +1,58 @@
-
 <head>
   {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'performance/style.css' %}">
 </head>
 
 <body>
 
+  <h2>Testes de performance. GIF nunca deve parar, música nunca deve parar, interação nunca deve parar.</h2>
+  <div class="separator"></div>
+
   <div>
-    <img src="{% static 'performance/nyancat.gif' %}">
+    <button class="button" onclick="doOriginal()">Realiza teste pesado tradicional</button>
+    <button class="button" onclick="doWithSetTimeout()">Realiza teste pesado usando setTimeout</button>
+    <button class="button" onclick="doWithWorkers('{% static 'performance/worker.js' %}')">Realiza teste pesado usando Workers</button>
   </div>
-  <input type="checkbox"></input> Clique para testes
+
+  <div>
+    <h4>GIF. Caso ela trave algo está errado</h4>
+    <img src="{% static 'performance/nyancat.gif' %}">
+    <audio src="{% static 'performance/nyancat.mp3' %}" autoplay loop>
+  </div>
+
+  <div style="margin-top:10px">
+    <h4>Esse campo nunca deve ficar "travado" e não responder na hora o clique</h4>
+    <input type="checkbox"></input> Clique para testar se a interação está travada
+  </div>
+
+  <h4>Clique nos items para removê-los. Os vermelhos irão usar a Main Thread. Os azuis irão usar a GPU.</h4>
+  <div class="grid">
+
+    <div id="0" class="item blue"><label> Textinho </label></div>
+    <div id="1" class="item blue"><label> Textinho </label></div>
+    <div id="2" class="item blue"><label> Textinho </label></div>
+
+    <div id="3" class="item red"><label> Textinho </label></div>
+    <div id="4" class="item red"><label> Textinho </label></div>
+    <div id="5" class="item red"><label> Textinho </label></div>
+
+  </div>
+
+  <script src="{% static 'performance/tests.js' %}"></script>
+  <script src="{% static 'performance/jquery-3.2.1.js' %}"></script>
+
+  <script>
+
+    var redItems = document.getElementsByClassName('item red');
+    for (var i = 0; i < redItems.length; i++) {
+      redItems[i].onclick = function() { hideItemOriginal(this); };
+    }
+
+    var blueItems = document.getElementsByClassName('item blue');
+    for (var i = 0; i < blueItems.length; i++) {
+      blueItems[i].onclick = function() { hideItemFLIP(this); };
+    }
+
+  </script>
 
 </body>

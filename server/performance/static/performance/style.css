@@ -1,0 +1,44 @@
+.grid {
+  margin: 20px;
+  width: 400px;
+}
+
+.item {
+  margin-bottom:10px;
+  height: 100px;
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.remove {
+  position: absolute;
+  width: 400px;
+}
+
+.anima {
+  transition: 300ms ease-out;
+}
+
+.anima.remove {
+  opacity: 0;
+}
+
+.item.red {
+  background-color: #e32929;
+}
+
+.item.blue {
+  background-color: #006bff;
+}
+
+.separator {
+  border-style: solid;
+  border-width: 1px;
+  width: 100%;
+}
+
+.button {
+  height:40px;
+  margin: 10px;
+}
